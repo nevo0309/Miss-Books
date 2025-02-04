@@ -6,7 +6,7 @@ import { Home } from './pages/Home.jsx'
 const { useState } = React
 
 export function App() {
-  const [page, setPage] = useState('home')
+  const [page, setPage] = useState('book')
 
   function onSetPage(page) {
     setPage(page)
