@@ -29,15 +29,20 @@ export function BookIndex() {
   function onSetFilterBy(filterBy) {
     setFilterBy({ ...filterBy })
   }
+  function onRemoveBook(bookId) {
+    bookService.remove(bookId).then(() => {
+      setBooks((prevBook) => prevBook.filter((book) => book.id !== bookId))
+    })
+  }
   if (!books) return 'Loading...'
   return (
     <section className="book-index">
       {selectedBookId ? (
-        <BookDetails selectedBookId={selectedBookId} />
+        <BookDetails selectedBookId={selectedBookId} onSetSelectedBookId={onSetSelectedBookId} />
       ) : (
         <React.Fragment>
           <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-          <BookList books={books} onSetSelectedBookId={onSetSelectedBookId} />
+          <BookList books={books} onSetSelectedBookId={onSetSelectedBookId} onRemoveBook={onRemoveBook} />
         </React.Fragment>
       )}
     </section>

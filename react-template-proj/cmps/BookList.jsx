@@ -1,6 +1,6 @@
 import { BookPreview } from './BookPreview.jsx'
 
-export function BookList({ books, onSetSelectedBookId }) {
+export function BookList({ books, onSetSelectedBookId, onRemoveBook }) {
   return (
     <section>
       <h2>Book List:</h2>
@@ -9,7 +9,7 @@ export function BookList({ books, onSetSelectedBookId }) {
           <li key={book.id}>
             <BookPreview book={book} />
             <section>
-              <button>Delete</button>
+              <button onClick={() => onRemoveBook(book.id)}>Delete</button>
               <button onClick={() => onSetSelectedBookId(book.id)}>Details</button>
             </section>
           </li>
