@@ -1,7 +1,7 @@
 import { bookService } from '../services/book.service.js'
 const { useState, useEffect } = React
 
-export function BookDetails({ selectedBookId }) {
+export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
   const [book, setBook] = useState(null)
 
   useEffect(() => {
@@ -56,6 +56,7 @@ export function BookDetails({ selectedBookId }) {
         </p>
         {/* {book.listPrice.isOnSale && <span className="sale-tag">On Sale!</span>} */}
       </div>
+      <button onClick={() => onSetSelectedBookId(null)}>Back</button>
     </section>
   )
 }
