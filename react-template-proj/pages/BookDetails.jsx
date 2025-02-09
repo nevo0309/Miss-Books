@@ -15,10 +15,21 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
     })
   }
   function getPriceClass() {
-    if (book.listPrice.amount > 150) return 'high-price'
-    else if (book.listPrice.amount < 50) return 'low-price'
+    let price = book.listPrice.amount
+
+    if (book.listPrice.isOnSale) {
+      price = getDiscountedPrice(price)
+    }
+
+    if (price > 100) return 'high-price'
+    else if (price < 50) return 'low-price'
     return ''
   }
+
+  function getDiscountedPrice(amount) {
+    return (amount * 0.5).toFixed(2).replace(/\.00$/, '')
+  }
+
   function getPublishDate() {
     const currYear = new Date().getFullYear()
     let publishedYear = book.publishedDate
@@ -41,16 +52,13 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
 
   return (
     <section className="book-details">
-      {/* Title */}
       <h2 className="title-detail">{book.title.toUpperCase()}</h2>
       <h3 className="subtitle-detail">{book.subtitle}</h3>
 
-      {/* Book Cover */}
       <div className="thumbnail-detail">
         <img src={book.thumbnail} alt="Book cover" />
       </div>
 
-      {/* Book Info */}
       <div className="book-info">
         <p className="authors-detail">
           <strong>Author(s):</strong> {book.authors.join(', ')}
@@ -77,11 +85,28 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
       </div>
 
       <div className="price-detail">
-        <p className={'amount ' + getPriceClass()}>
-          {book.listPrice.amount} {book.listPrice.currencyCode}
-        </p>
-        {/* {book.listPrice.isOnSale && <span className="sale-tag">On Sale!</span>} */}
+        {book.listPrice.isOnSale ? (
+          <div className="price-wrapper">
+            <p className="amount original-price--detail">
+              {book.listPrice.amount} {book.listPrice.currencyCode}
+            </p>
+            <span className="discount-label-detail">-50%</span>
+            <p className={'amount discounted-price-detail ' + getPriceClass()}>
+              {getDiscountedPrice(book.listPrice.amount)} {book.listPrice.currencyCode}
+            </p>
+          </div>
+        ) : (
+          <p className={'amount ' + getPriceClass()}>
+            {book.listPrice.amount} {book.listPrice.currencyCode}
+          </p>
+        )}
       </div>
+
+      {book.listPrice.isOnSale && (
+        <div className="ribbon">
+          <span>On Sale</span>
+        </div>
+      )}
       <button onClick={() => onSetSelectedBookId(null)}>Back</button>
     </section>
   )

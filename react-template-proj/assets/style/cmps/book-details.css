@@ -8,6 +8,7 @@
   text-align: center;
   color: var(--clr1txt);
   font-family: 'Arial', sans-serif;
+  position: relative;
 }
 
 .title-detail {
@@ -23,7 +24,6 @@
   margin-bottom: 15px;
 }
 
-/* Thumbnail (Book Cover) */
 .thumbnail-detail {
   display: flex;
   justify-content: center;
@@ -58,15 +58,15 @@
 
 .price-detail {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   margin-top: 15px;
   font-size: 20px;
   font-weight: bold;
-  /* background: var(--clr4bg); */
   padding: 10px;
   border-radius: 8px;
   color: var(--clr1txt);
+  position: relative;
 }
 
 .sale-tag {
@@ -90,4 +90,31 @@
 }
 .low-price {
   color: var(--clrlprice) !important;
+}
+
+.original-price--detail {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+}
+
+.discount-label-detail {
+  position: absolute;
+
+  background: red;
+  color: white;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  transform: translate(50%, -50%);
+}
+
+.discounted-price-detail {
+  font-size: 22px;
+  font-weight: bold;
+  /* color: var(--clrlprice); */
+  margin-top: 5px;
 }
