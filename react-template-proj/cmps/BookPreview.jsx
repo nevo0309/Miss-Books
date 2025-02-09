@@ -1,6 +1,13 @@
-export function BookPreview({ book, onRemoveBook, onEditBook }) {
+const { useState } = React
+
+export function BookPreview({ book }) {
+  const [fullDescription, setFullDescription] = useState(false)
   const originalPrice = book.listPrice.amount
   const discountedPrice = (originalPrice * 0.5).toFixed(2).replace(/\.00$/, '')
+
+  function showMoreDescrip() {
+    setFullDescription((prevState) => !prevState)
+  }
 
   return (
     <section className="book-preview">
@@ -13,8 +20,10 @@ export function BookPreview({ book, onRemoveBook, onEditBook }) {
 
       <h4 className="book-title">Title: {book.title}</h4>
       <p className="book-description">
-        <strong>Description:</strong> {book.description.length > 100 ? `${book.description.substring(0, 100)}...` : book.description}
-        <buttn className="read-more"> Read More</buttn>
+        <strong>Description:</strong> {fullDescription ? book.description : `${book.description.substring(0, 100)}...`}
+        <button className="read-more" onClick={showMoreDescrip}>
+          {fullDescription ? ' Show Less' : ' Read More'}
+        </button>
       </p>
 
       {book.listPrice.isOnSale ? (
