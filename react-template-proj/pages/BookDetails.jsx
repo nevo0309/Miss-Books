@@ -14,6 +14,28 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
       setBook(book)
     })
   }
+  function getPriceClass() {
+    if (book.listPrice.amount > 150) return 'high-price'
+    else if (book.listPrice.amount < 50) return 'low-price'
+    return ''
+  }
+  function getPublishDate() {
+    const currYear = new Date().getFullYear()
+    let publishedYear = book.publishedDate
+    let publishDateTxt = ''
+    let diff = currYear - publishedYear
+    if (diff > 10) publishDateTxt = ' - Vintage'
+    else if (diff < 3) publishDateTxt = ' - NEW!'
+    return publishDateTxt
+  }
+
+  function getPageCount() {
+    let pageCount = ''
+    if (book.pageCount > 500) pageCount = ' - Long reading'
+    else if (book.pageCount > 200) pageCount = ' - Decent reading'
+    else if (book.pageCount < 100) pageCount = ' - Light reading'
+    return pageCount
+  }
 
   if (!book) return <p>Loading book details...</p>
 
@@ -34,7 +56,9 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
           <strong>Author(s):</strong> {book.authors.join(', ')}
         </p>
         <p className="publishedDate-detail">
-          <strong>Published:</strong> {book.publishedDate}
+          <span className="book-details-info-title"> Year publish: </span>
+          <span className="book-details-info-publishDate"> {book.publishedDate}:</span>
+          <span className="book-details-info-text">{getPublishDate()}</span>
         </p>
         <p className="language-detail">
           <strong>Language:</strong> {book.language.toUpperCase()}
@@ -43,7 +67,9 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
           <strong>Category:</strong> {book.categories.join(', ')}
         </p>
         <p className="pageCount-detail">
-          <strong>Pages:</strong> {book.pageCount}
+          <span className="book-details-info-title">Pages: </span>
+          <span className="book-details-info-pageCount">{book.pageCount}</span>
+          <span className="book-details-info-text">{getPageCount()}</span>
         </p>
         <p className="description-detail">
           <strong>Description:</strong> {book.description}
@@ -51,7 +77,7 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
       </div>
 
       <div className="price-detail">
-        <p className="amount">
+        <p className={'amount ' + getPriceClass()}>
           {book.listPrice.amount} {book.listPrice.currencyCode}
         </p>
         {/* {book.listPrice.isOnSale && <span className="sale-tag">On Sale!</span>} */}

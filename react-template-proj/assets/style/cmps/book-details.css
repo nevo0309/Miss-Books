@@ -63,7 +63,7 @@
   margin-top: 15px;
   font-size: 20px;
   font-weight: bold;
-  background: var(--clr4bg);
+  /* background: var(--clr4bg); */
   padding: 10px;
   border-radius: 8px;
   color: var(--clr1txt);
@@ -77,4 +77,17 @@
   margin-left: 10px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.book-details-info-text {
+  background-color: var(--clr2bg);
+}
+.book-details-info-title {
+  font-weight: bold;
+}
+.high-price {
+  color: var(--clrhprice);
+}
+.low-price {
+  color: var(--clrlprice) !important;
 }
