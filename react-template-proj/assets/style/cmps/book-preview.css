@@ -86,10 +86,6 @@
 
   margin-top: 5px;
 }
-.read-more:hover {
-  color: var(--clrhprice);
-  cursor: pointer;
-}
 
 .ribbon {
   position: absolute;
