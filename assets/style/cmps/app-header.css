@@ -11,3 +11,8 @@
   display: flex;
   gap: 15px;
 }
+a.active {
+  color: var(--clr1txtActive);
+  font-weight: bold;
+  text-decoration: underline;
+}

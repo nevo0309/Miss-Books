@@ -1,18 +1,22 @@
 import { bookService } from '../services/book.service.js'
 const { useState, useEffect } = React
+const { useParams, Link } = ReactRouterDOM
 
-export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
+export function BookDetails() {
   const [book, setBook] = useState(null)
+  const params = useParams()
 
   useEffect(() => {
     loadBook()
-  }, [selectedBookId])
+  }, [params.bookId])
 
   function loadBook() {
-    if (!selectedBookId) return
-    bookService.get(selectedBookId).then((book) => {
-      setBook(book)
-    })
+    bookService
+      .get(params.bookId)
+      .then(setBook)
+      .catch((err) => {
+        console.log('Problem getting book:', book)
+      })
   }
   function getPriceClass() {
     let price = book.listPrice.amount
@@ -107,7 +111,7 @@ export function BookDetails({ selectedBookId, onSetSelectedBookId }) {
           <span>On Sale</span>
         </div>
       )}
-      <button onClick={() => onSetSelectedBookId(null)}>Back</button>
+      <Link to="/book">Back</Link>
     </section>
   )
 }
