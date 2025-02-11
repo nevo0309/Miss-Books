@@ -2,6 +2,7 @@ import { BookList } from '../cmps/BookList.jsx'
 import { bookService } from '../services/book.service.js'
 import { BookDetails } from './BookDetails.jsx'
 import { BookFilter } from '../cmps/BookFilter.jsx'
+import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 
@@ -30,9 +31,17 @@ export function BookIndex() {
     setFilterBy({ ...filterBy })
   }
   function onRemoveBook(bookId) {
-    bookService.remove(bookId).then(() => {
-      setBooks((prevBook) => prevBook.filter((book) => book.id !== bookId))
-    })
+    bookService
+      .remove(bookId)
+      .then(() => {
+        setBooks((prevBook) => prevBook.filter((book) => book.id !== bookId))
+
+        showSuccessMsg('Book Removed')
+      })
+      .catch((err) => {
+        console.log('Problem removing book', err)
+        showErrorMsg('Problems removing book')
+      })
   }
   if (!books) return 'Loading...'
   return (
