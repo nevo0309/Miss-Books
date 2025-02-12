@@ -89,7 +89,7 @@ export function BookEdit() {
 
   return (
     <section className="edit-container">
-      <h2>Edit Book</h2>
+      <h2>{bookId ? 'Edit book' : 'Add book'}</h2>
       <form onSubmit={onSubmitBook}>
         <label htmlFor="title">Title</label>
         <input name="title" type="text" id="title" value={bookToEdit && title ? title : ''} onChange={handleChange} />
