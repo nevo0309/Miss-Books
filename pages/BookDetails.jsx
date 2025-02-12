@@ -39,7 +39,8 @@ export function BookDetails() {
     let publishedYear = book.publishedDate
     let publishDateTxt = ''
     let diff = currYear - publishedYear
-    if (diff > 10) publishDateTxt = ' - Vintage'
+    if (publishedYear === null) return
+    else if (diff > 10) publishDateTxt = ' - Vintage'
     else if (diff < 3) publishDateTxt = ' - NEW!'
     return publishDateTxt
   }
@@ -48,7 +49,8 @@ export function BookDetails() {
     let pageCount = ''
     if (book.pageCount > 500) pageCount = ' - Long reading'
     else if (book.pageCount > 200) pageCount = ' - Decent reading'
-    else if (book.pageCount < 100) pageCount = ' - Light reading'
+    else if (book.pageCount > 0) pageCount = ' - Light reading'
+    else if (book.pageCount === null) return
     return pageCount
   }
 
@@ -56,8 +58,8 @@ export function BookDetails() {
 
   return (
     <section className="book-details">
-      <h2 className="title-detail">{book.title.toUpperCase()}</h2>
-      <h3 className="subtitle-detail">{book.subtitle}</h3>
+      <h2 className="title-detail">{book && book.title ? book.title.toUpperCase() : 'Untitled'}</h2>
+      <h3 className="subtitle-detail">{book && book.subtitle ? book.subtitle : 'No subtitle available'}</h3>
 
       <div className="thumbnail-detail">
         <img src={book.thumbnail} alt="Book cover" />
@@ -65,7 +67,7 @@ export function BookDetails() {
 
       <div className="book-info">
         <p className="authors-detail">
-          <strong>Author(s):</strong> {book.authors.join(', ')}
+          <strong>Author(s):</strong> {book.authors ? (Array.isArray(book.authors) ? book.authors.join(', ') : book.authors) : 'Unknown'}
         </p>
         <p className="publishedDate-detail">
           <span className="book-details-info-title"> Year publish: </span>
@@ -76,7 +78,7 @@ export function BookDetails() {
           <strong>Language:</strong> {book.language.toUpperCase()}
         </p>
         <p className="categories-detail">
-          <strong>Category:</strong> {book.categories.join(', ')}
+          <strong>Category:</strong> {book.categories ? (Array.isArray(book.categories) ? book.categories.join(', ') : book.categories) : 'Uncategorized'}
         </p>
         <p className="pageCount-detail">
           <span className="book-details-info-title">Pages: </span>

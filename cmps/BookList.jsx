@@ -4,7 +4,7 @@ const { Link } = ReactRouterDOM
 export function BookList({ books, onRemoveBook }) {
   return (
     <section>
-      <h2>Book List:</h2>
+      <h2 className="list-header">Book List:</h2>
       <ul className="book-list">
         {books.map((book) => (
           <li key={book.id}>
@@ -15,7 +15,7 @@ export function BookList({ books, onRemoveBook }) {
                 <button className="remove-btn" onClick={() => onRemoveBook(book.id)}>
                   Remove
                 </button>
-                <button className="edit-btn">Edit</button> {/*need to work on this  */}
+                <Link to={`/book/edit/${book.id}`}>Edit</Link>
               </div>
             </section>
           </li>

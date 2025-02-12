@@ -5,6 +5,7 @@ import { BookFilter } from '../cmps/BookFilter.jsx'
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 const { useState, useEffect } = React
+const { Link } = ReactRouterDOM
 
 export function BookIndex() {
   const [books, setBooks] = useState(null)
@@ -46,14 +47,11 @@ export function BookIndex() {
   if (!books) return 'Loading...'
   return (
     <section className="book-index">
-      {selectedBookId ? (
-        <BookDetails selectedBookId={selectedBookId} onSetSelectedBookId={onSetSelectedBookId} />
-      ) : (
-        <React.Fragment>
-          <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-          <BookList books={books} onSetSelectedBookId={onSetSelectedBookId} onRemoveBook={onRemoveBook} />
-        </React.Fragment>
-      )}
+      <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+      <Link to="/book/edit" className="link-add-book">
+        Add book
+      </Link>
+      <BookList books={books} onRemoveBook={onRemoveBook} />
     </section>
   )
 }

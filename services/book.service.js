@@ -12,6 +12,7 @@ export const bookService = {
   save,
   query,
   getDefaultFilter,
+  getEmptyBook,
 }
 
 function query(filterBy = {}) {
@@ -39,6 +40,28 @@ function save(book) {
     return storageService.put(BOOKS_KEY, book)
   } else {
     return storageService.post(BOOKS_KEY, book)
+  }
+}
+
+function getEmptyBook(title = '', price = 0) {
+  const randomImgNumber = Math.floor(Math.random() * 19) + 1
+  const randomImgPath = `/assets/img/${randomImgNumber}.jpg`
+
+  return {
+    title,
+    subtitle: null,
+    authors: null,
+
+    listPrice: {
+      amount: price,
+      currencyCode: 'USD',
+      isOnSale: false,
+    },
+    publishedDate: null,
+    thumbnail: randomImgPath,
+    description: '',
+    pageCount: null,
+    language: 'en',
   }
 }
 
