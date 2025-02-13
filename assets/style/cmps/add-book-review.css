@@ -1,0 +1,60 @@
+.add-review-container {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: var(--clr3bg);
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1.5px solid var(--clr1txt);
+  position: relative;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+  max-height: 45px;
+}
+.add-review-container:hover {
+  max-height: 350px;
+}
+.add-review-container h4 {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 0;
+}
+
+.add-review-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.add-review-container input:focus,
+.add-review-container textarea:focus,
+.add-review-container select:focus {
+  border-color: var(--clrsuccess);
+  background-color: var(--clr1bg);
+  outline: none;
+}
+.add-review-container input,
+.add-review-container textarea,
+.add-review-container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-review-container button {
+  width: 100%;
+  padding: 6px;
+  background-color: var(--clrsuccess);
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  margin: 0;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.add-review-container button:hover {
+  cursor: pointer;
+  background-color: var(--clr1txtActive);
+}

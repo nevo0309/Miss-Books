@@ -25,10 +25,10 @@
   justify-content: space-between;
   margin-top: 15px;
 }
-.book-list li img {
-  /* height: 20vh; */
+.reviews-header {
+  text-align: center;
+  font-size: 2rem;
 }
-
 .book-list li:hover {
   transform: translateY(-10px);
 }

@@ -1,4 +1,3 @@
-/* Style the "Add book" link */
 .link-add-book {
   display: block;
   width: fit-content;
@@ -15,7 +14,6 @@
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-/* Hover effect */
 .link-add-book:hover {
   transform: scale(1.05);
 }
