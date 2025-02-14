@@ -44,7 +44,16 @@ export function BookIndex() {
         showErrorMsg('Problems removing book')
       })
   }
-  if (!books) return 'Loading...'
+
+  if (!books)
+    return (
+      <div class="loader">
+        <div class="book">
+          <div class="page"></div>
+          <div class="page page2"></div>
+        </div>
+      </div>
+    )
   return (
     <section className="book-index">
       <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
