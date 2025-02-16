@@ -9,7 +9,7 @@ export function Home() {
         <div className="features">
           <div className="feature">
             <h2>📚 Discover New Books</h2>
-            <p>Search through thousands of books using Google Books API.</p>
+            <p>Search through thousands of books using Google.</p>
           </div>
           <div className="feature">
             <h2>✏️ Manage Your Collection</h2>
