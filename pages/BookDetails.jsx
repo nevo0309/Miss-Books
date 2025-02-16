@@ -74,10 +74,10 @@ export function BookDetails() {
 
   if (!book)
     return (
-      <div class="loader">
-        <div class="book">
-          <div class="page"></div>
-          <div class="page page2"></div>
+      <div className="loader">
+        <div className="book">
+          <div className="page"></div>
+          <div className="page page2"></div>
         </div>
       </div>
     )
