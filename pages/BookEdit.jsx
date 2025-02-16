@@ -1,7 +1,9 @@
 import { bookService } from '../services/book.service.js'
+import { AddGoogleBook } from '../cmps/AddGoogleBook.jsx'
+
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouterDOM
+const { useParams, useNavigate, Link } = ReactRouterDOM
 
 export function BookEdit() {
   const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
@@ -95,6 +97,8 @@ export function BookEdit() {
   return (
     <section className="edit-container">
       <h2>{bookId ? 'Edit book' : 'Add book'}</h2>
+
+      {!bookId && <AddGoogleBook />}
       <form onSubmit={onSubmitBook}>
         <label htmlFor="title">Title</label>
         <input name="title" type="text" id="title" value={bookToEdit && title ? title : ''} onChange={handleChange} />
@@ -143,6 +147,9 @@ export function BookEdit() {
         </label>
 
         <button>Submit</button>
+        <Link className="back-btn" to="/book">
+          Back
+        </Link>
       </form>
     </section>
   )

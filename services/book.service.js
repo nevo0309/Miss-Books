@@ -47,7 +47,7 @@ function save(book) {
   }
 }
 
-function getEmptyBook(title = '', price = 0) {
+function getEmptyBook(title = '', price = 0, description = utilService.makeLorem()) {
   const randomImgNumber = Math.floor(Math.random() * 19) + 1
   const randomImgPath = `/assets/img/${randomImgNumber}.jpg`
 
@@ -63,7 +63,7 @@ function getEmptyBook(title = '', price = 0) {
     },
     publishedDate: null,
     thumbnail: randomImgPath,
-    description: '',
+    description,
     pageCount: null,
     language: 'en',
   }
@@ -83,9 +83,18 @@ function _createBooks() {
     }
   })
 }
+
 function addGoogleBook(book) {
-  return storageService.post(BOOK_KEY, tygbook, false)
+  return storageService.query(BOOKS_KEY).then((books) => {
+    const bookExists = books.some((b) => b.id === book.id)
+    if (bookExists) {
+      return Promise.reject('This book is already in your collection!')
+    }
+
+    return storageService.post(BOOKS_KEY, book, false)
+  })
 }
+
 function getGoogleBooks(bookName) {
   if (bookName === '') return Promise.resolve()
   const googleBooks = gCache[bookName]
@@ -111,7 +120,7 @@ function _formatGoogleBooks(googleBooks) {
     const book = {
       id: googleBook.id,
       title: volumeInfo.title,
-      description: volumeInfo.description,
+      description: volumeInfo.description ? volumeInfo.description : utilService.makeLorem(),
       pageCount: volumeInfo.pageCount,
       authors: volumeInfo.authors,
       categories: volumeInfo.categories,
