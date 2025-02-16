@@ -140,7 +140,9 @@ export function BookDetails() {
             <span>On Sale</span>
           </div>
         )}
-        <Link to="/book">Back</Link>
+        <Link className="back-btn" to="/book">
+          Back
+        </Link>
       </section>
       <section className="book-review-container">
         <AddBookReview book={book} setBook={setBook} />

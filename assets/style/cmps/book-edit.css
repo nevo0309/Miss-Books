@@ -77,6 +77,24 @@
   background-color: var(--clr1txtActive);
   transform: scale(1.05);
 }
+.back-btn {
+  display: block; /* Makes it appear on its own line */
+  width: fit-content;
+  margin: 10px auto 0;
+  padding: 8px 15px;
+  background-color: var(--clr1bg);
+  color: var(--clr1txt);
+  border: 1px solid var(--clr1txt);
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1em;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.back-btn:hover {
+  transform: scale(1.05);
+}
 
 .error-msg {
   color: var(--clrerr);
