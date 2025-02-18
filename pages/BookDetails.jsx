@@ -7,7 +7,7 @@ const { useParams, Link } = ReactRouterDOM
 export function BookDetails() {
   const [book, setBook] = useState(null)
   const params = useParams()
-  console.log(book)
+  // console.log(book)
 
   useEffect(() => {
     loadBook()
@@ -140,10 +140,24 @@ export function BookDetails() {
             <span>On Sale</span>
           </div>
         )}
-        <Link className="back-btn" to="/book">
-          Back
-        </Link>
+
+        <nav className="book-details-nav">
+          <Link to={`/book/${book.prevBookId}`}>
+            <button>
+              <i className="fa-solid fa-arrow-left"></i>
+            </button>
+          </Link>
+          <Link className="back-btn" to="/book">
+            Back
+          </Link>
+          <Link to={`/book/${book.nextBookId}`}>
+            <button>
+              <i className="fa-solid fa-arrow-right"></i>
+            </button>
+          </Link>
+        </nav>
       </section>
+
       <section className="book-review-container">
         <AddBookReview book={book} setBook={setBook} />
         <h4 className="reviews-header">Reviews</h4>

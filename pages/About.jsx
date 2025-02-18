@@ -13,7 +13,7 @@ export function About() {
 
         <h2>What You Can Do Here</h2>
         <ul>
-          <li>Search for books using Google Books API</li>
+          <li>Search for books using Google</li>
           <li>Add books to your collection</li>
           <li>Edit and manage book details</li>
           <li>Discover new reads and genres</li>

@@ -118,3 +118,36 @@
 
   margin-top: 5px;
 }
+.book-details-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.book-details-nav a {
+  text-decoration: none;
+}
+
+.book-details-nav button {
+  background-color: #f7de97;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.book-details-nav button:hover {
+  background-color: #f7d65f;
+}
+
+.book-details-nav a:first-child {
+  margin-right: auto; /* Pushes previous button to the left */
+}
+
+.book-details-nav a:last-child {
+  margin-left: auto; /* Pushes next button to the right */
+}
