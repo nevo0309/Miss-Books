@@ -101,16 +101,16 @@ export function BookEdit() {
       {!bookId && <AddGoogleBook />}
       <form onSubmit={onSubmitBook}>
         <label htmlFor="title">Title</label>
-        <input name="title" type="text" id="title" value={bookToEdit && title ? title : ''} onChange={handleChange} />
+        <input name="title" type="text" id="title" value={title} onChange={handleChange} />
 
         <label htmlFor="subtitle">Subtitle</label>
-        <input name="subtitle" type="text" id="subtitle" value={bookToEdit && subtitle ? subtitle : ''} onChange={handleChange} />
+        <input name="subtitle" type="text" id="subtitle" value={subtitle} onChange={handleChange} />
 
         <label htmlFor="authors">Authors</label>
         <input name="authors" type="text" id="authors" value={bookToEdit && Array.isArray(authors) ? authors.join(', ') : ''} onChange={handleChange} />
 
         <label htmlFor="categories">Category</label>
-        <select name="categories" id="categories" value={bookToEdit && categories ? categories : ''} onChange={handleChange}>
+        <select name="categories" id="categories" value={categories} onChange={handleChange}>
           <option value="">Select a category</option>
           {categoryOptions.map((category) => (
             <option key={category} value={category}>
@@ -120,22 +120,22 @@ export function BookEdit() {
         </select>
 
         <label htmlFor="publishedDate">Published Year</label>
-        <input name="publishedDate" type="number" id="publishedDate" value={bookToEdit && publishedDate ? publishedDate : ''} onChange={handleChange} />
+        <input name="publishedDate" type="number" id="publishedDate" value={publishedDate} onChange={handleChange} />
 
         <label htmlFor="description">Description</label>
-        <textarea name="description" id="description" value={bookToEdit && description ? description : ''} onChange={handleChange}></textarea>
+        <textarea name="description" id="description" value={description} onChange={handleChange}></textarea>
 
         <label htmlFor="pageCount">Page Count</label>
-        <input name="pageCount" type="number" id="pageCount" value={bookToEdit && pageCount ? pageCount : ''} onChange={handleChange} />
+        <input name="pageCount" type="number" id="pageCount" value={pageCount} onChange={handleChange} />
 
         <label htmlFor="language">Language</label>
-        <input name="language" type="text" id="language" value={bookToEdit && language ? language : ''} onChange={handleChange} />
+        <input name="language" type="text" id="language" value={language} onChange={handleChange} />
 
         <label htmlFor="price">Price</label>
-        <input name="price" type="text" id="price" value={bookToEdit && listPrice ? price : ''} onChange={handleChange} />
+        <input name="price" type="text" id="price" value={listPrice.amount} onChange={handleChange} />
 
         <label htmlFor="currencyCode">Currency</label>
-        <select name="currencyCode" id="currencyCode" value={bookToEdit && listPrice ? currencyCode : ''} onChange={handleChange}>
+        <select name="currencyCode" id="currencyCode" value={listPrice.currencyCode} onChange={handleChange}>
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
           <option value="ILS">ILS</option>
