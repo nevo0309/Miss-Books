@@ -5,22 +5,25 @@ import { BookFilter } from '../cmps/BookFilter.jsx'
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
+const { Link, useSearchParams } = ReactRouterDOM
 
 export function BookIndex() {
   const [books, setBooks] = useState(null)
-  const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+  const [searchParams, setSearchParams] = useSearchParams()
+  // const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+  const [filterBy, setFilterBy] = useState(bookService.getDefaultSearchParams(searchParams))
   const [selectedBookId, setSelectedBookId] = useState(null)
 
   useEffect(() => {
+    setSearchParams(filterBy)
     loadBooks()
   }, [filterBy])
 
   function loadBooks() {
     bookService.query(filterBy).then((books) => {
-      console.log(filterBy)
+      // console.log(filterBy)
 
-      console.log('books', books)
+      // console.log('books', books)
 
       setBooks(books)
     })

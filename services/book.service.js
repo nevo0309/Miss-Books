@@ -17,6 +17,7 @@ export const bookService = {
   getEmptyBook,
   getGoogleBooks,
   addGoogleBook,
+  getDefaultSearchParams,
 }
 
 function query(filterBy = {}) {
@@ -47,24 +48,24 @@ function save(book) {
   }
 }
 
-function getEmptyBook(title = '', price = 0, description = utilService.makeLorem()) {
+function getEmptyBook(title = '', price = 0, description = '') {
   const randomImgNumber = Math.floor(Math.random() * 19) + 1
   const randomImgPath = `/assets/img/${randomImgNumber}.jpg`
 
   return {
     title,
-    subtitle: null,
-    authors: null,
-
+    subtitle: '',
+    authors: '',
+    categories: '',
     listPrice: {
       amount: price,
       currencyCode: 'USD',
       isOnSale: false,
     },
-    publishedDate: null,
+    publishedDate: '',
     thumbnail: randomImgPath,
     description,
-    pageCount: null,
+    pageCount: '',
     language: 'en',
   }
 }
@@ -72,6 +73,19 @@ function getEmptyBook(title = '', price = 0, description = utilService.makeLorem
 function getDefaultFilter() {
   return { title: '', minPrice: '' }
 }
+function getDefaultSearchParams(searchParams) {
+  const defaultFilter = getDefaultFilter()
+  const filterBy = {}
+  for (const field in defaultFilter) {
+    filterBy[field] = searchParams.get(field) || defaultFilter[field]
+  }
+  return filterBy
+}
+// function getDefaultSearchParams(searchParams) {
+//   const title = searchParams.get('title') || ''
+//   const minPrice = searchParams.get('minPrice') || ''
+//   return { title, minPrice }
+// }
 
 function _createBooks() {
   storageService.query(BOOKS_KEY).then((storedBooks) => {
@@ -108,6 +122,8 @@ function getGoogleBooks(bookName) {
     const data = res.data.items
     console.log('data from network...', data)
     const books = _formatGoogleBooks(data)
+    console.log('books', books)
+
     gCache[bookName] = books
     utilService.saveToStorage(CACHE_STORAGE_KEY, gCache)
     return books
@@ -117,6 +133,8 @@ function getGoogleBooks(bookName) {
 function _formatGoogleBooks(googleBooks) {
   return googleBooks.map((googleBook) => {
     const { volumeInfo } = googleBook
+    console.log('volumeInfo', volumeInfo)
+
     const book = {
       id: googleBook.id,
       title: volumeInfo.title,
