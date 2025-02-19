@@ -7,7 +7,7 @@ const { useParams, Link } = ReactRouterDOM
 export function BookDetails() {
   const [book, setBook] = useState(null)
   const params = useParams()
-  // console.log(book)
+  console.log(book)
 
   useEffect(() => {
     loadBook()

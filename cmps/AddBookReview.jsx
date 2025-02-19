@@ -1,18 +1,20 @@
+const { useState, useRef, useEffect } = React
 import { bookService } from '../services/book.service.js'
 import { utilService } from '../services/util.service.js'
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-const { useState } = React
+import { RateBySelect } from './RateBySelect.jsx'
+import { RateByTextbox } from './RateByTextbox.jsx'
+import { RateByStars } from './RateByStars.jsx'
 
 export function AddBookReview({ book, setBook }) {
   const [review, setReview] = useState('')
   const [rating, setRating] = useState(5)
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
+  const [ratingType, setRatingType] = useState('select')
 
   const onSubmitReview = (e) => {
     e.preventDefault()
-
-    //swap between yy/mm/dd => dd/mm/yy
     const [year, month, day] = date.split('-')
     const formattedDate = `${day}/${month}/${year}`
 
@@ -20,7 +22,7 @@ export function AddBookReview({ book, setBook }) {
       id: utilService.makeId(),
       name,
       review,
-      rating: parseInt(rating),
+      rating,
       readAt: formattedDate,
     }
 
@@ -38,13 +40,15 @@ export function AddBookReview({ book, setBook }) {
         console.log('review add err', err)
         showErrorMsg('Problem add review')
       })
+
     setName('')
     setReview('')
     setRating(5)
     setDate('')
   }
-  //Capture today date
+
   const today = new Date().toISOString().split('T')[0]
+
   return (
     <section>
       <form className="add-review-container" onSubmit={onSubmitReview}>
@@ -58,14 +62,28 @@ export function AddBookReview({ book, setBook }) {
         <label htmlFor="date">Read at</label>
         <input type="date" id="date" name="date" max={today} value={date} onChange={(e) => setDate(e.target.value)} />
 
-        <label htmlFor="rating">Rate</label>
-        <select name="rating" id="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
+        <fieldset className="rating-container">
+          <legend>Choose Rating Method</legend>
+          <label>
+            <input type="radio" name="ratingType" value="select" checked={ratingType === 'select'} onChange={() => setRatingType('select')} />
+            Select
+          </label>
+          <label>
+            <input type="radio" name="ratingType" value="textbox" checked={ratingType === 'textbox'} onChange={() => setRatingType('textbox')} />
+            Textbox
+          </label>
+          <label>
+            <input type="radio" name="ratingType" value="stars" checked={ratingType === 'stars'} onChange={() => setRatingType('stars')} />
+            Stars
+          </label>
+        </fieldset>
+
+        <h3 className="" htmlFor="rating">
+          Rate
+        </h3>
+        {ratingType === 'select' && <RateBySelect val={rating} onSelect={setRating} />}
+        {ratingType === 'textbox' && <RateByTextbox val={rating} onSelect={setRating} />}
+        {ratingType === 'stars' && <RateByStars val={rating} onSelect={setRating} />}
 
         <button type="submit">Save</button>
       </form>

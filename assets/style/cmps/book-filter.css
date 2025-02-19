@@ -9,7 +9,7 @@
   position: relative;
   overflow: hidden;
   transition: max-height 0.4s ease-in-out;
-  max-height: 45px; /* Shrink the form on defualt*/
+  max-height: 60px; /* Shrink the form on defualt*/
 }
 
 /* Expand the form when hovered */
@@ -34,7 +34,7 @@
 /* Show fields when hovered */
 .filter-container:hover form {
   opacity: 1;
-  transform: translateY(0);
+  /* transform: translateY(0); */
 }
 
 .filter-container label {
